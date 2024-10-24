@@ -11,8 +11,8 @@ public class PlayerCam : MonoBehaviour
 
     public Transform orientation;
 
-    public float xRotation;
-    public float yRotation;
+    float xRotation;
+    float yRotation;
 
     // Start is called before the first frame update
     void Start()

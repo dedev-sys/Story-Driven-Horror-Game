@@ -11,8 +11,8 @@ public class Timeline : MonoBehaviour
 
     void Start()
     {
-        playermovement.movement = false;
-        playercam.clampY = true;
+        playermovement.movement = true;
+        playercam.clampY = false;
     }
 
     void Update()

@@ -1,12 +1,21 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
     public bool movement;
+
+    public float groundDrag;
+
+    [Header("Check if grounded")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
 
     public Transform orientation;
 
@@ -25,7 +34,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        transform.eulerAngles = new Vector3(orientation.localRotation.x, orientation.localRotation.y, orientation.localRotation.z);
+
         MyInput();
+        SpeedControl();
+
+        if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+
     }
 
     private void FixedUpdate()
@@ -43,5 +62,16 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (movement) rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
     }
 }
