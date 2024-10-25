@@ -1,4 +1,3 @@
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -46,7 +45,7 @@ public class Type : MonoBehaviour
             obj.text += c;
             yield return new WaitForSeconds(delay);
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         nextLine();
     }
 

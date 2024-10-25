@@ -8,7 +8,7 @@ public class Interactor1 : MonoBehaviour
 {
     public Transform InteractorSource2;
     public GameObject player;
-
+    [SerializeField] Timeline t;
 
     // Update is called once per frame
     void Update()
@@ -17,8 +17,8 @@ public class Interactor1 : MonoBehaviour
         {
             if ((InteractorSource2.transform.position - transform.position).magnitude < 5.0f)
             {
-                SceneManager.LoadScene("stage1");
-                Cursor.lockState = CursorLockMode.Locked;
+                player.transform.position = new Vector3(108.9f, 14.5f, -79f);
+                StartCoroutine(t.rdroom());
             }
         }
     }

@@ -17,6 +17,7 @@ public class Interactor2 : MonoBehaviour
         {
             if ((InteractorSource2.transform.position - player.transform.position).magnitude < 5.0f)
             {
+                Cursor.lockState = CursorLockMode.None;
                 SceneManager.LoadScene("win");
                 Cursor.lockState = CursorLockMode.None;
             }
