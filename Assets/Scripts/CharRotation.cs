@@ -9,6 +9,7 @@ public class CharRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = orientation.rotation;
+        Vector3 rot = orientation.eulerAngles;
+        transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, rot.y+90, transform.localEulerAngles.z);
     }
 }

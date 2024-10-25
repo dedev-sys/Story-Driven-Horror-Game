@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    public bool movement;
+    public bool movementoff;
 
     public float groundDrag;
 
@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        rb.isKinematic = movementoff;
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         transform.eulerAngles = new Vector3(orientation.localRotation.x, orientation.localRotation.y, orientation.localRotation.z);
 
@@ -44,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
-
     }
 
     private void FixedUpdate()
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if (movement) rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        if (movementoff == false) rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 
     private void SpeedControl()
